@@ -4,142 +4,106 @@ public class Phonebook
 {
     public string path;
     public Abonent abonent;
-    public int lastId = 0;
+    public List<Abonent> abonents = new List<Abonent>();
+    private string sep = ";";
 
     public Phonebook(string path)
     {
         this.path = path;
         this.abonent = abonent;
-        this.lastId = lastId;
-        
+        this.abonents = abonents;
     }
 
-    public  void CreatePB()
+    public void CreatePB()
     {
-        // string[] lines = ["1;маша;89124567896", "2;даша;89561234578", "3;наташа;89127418526", "4;саша;89127411234"];
-        using (StreamWriter sw = new StreamWriter(this.path, false))
-        {
-        }
-        // {
-        //     foreach (string line in lines)
-        //     {
-        //         sw.WriteLineAsync(line);
-        //     }
-        // }
-
-        // this.lastId = lines.Length;
+        File.Create(this.path);
     }
 
-    public void ShowPB()
+    public void LoadAbonentsFromFile()
     {
         using (StreamReader sr = new StreamReader(path))
         {
             string line = sr.ReadLine();
             while (line != null)
             {
-                Console.WriteLine(line);
+                string[] parts = line.Split(sep);
+                abonents.Add(new Abonent(parts[0], parts[1]));
                 line = sr.ReadLine();
             }
+        }
+    }
+
+    public void SaveAbonentsToFile()
+    {
+        string line = "";
+        using (StreamWriter sw = new StreamWriter(path, false))
+        {
+            foreach (var item in abonents)
+            {
+                line = $"{item.name}{sep}{item.phone}";
+                sw.WriteLine(line);
+            }
+        }
+    }
+
+    public void ShowPB(List<Abonent> abonent)
+    {
+        foreach (Abonent item in abonents)
+        {
+            Console.WriteLine($"{item.name} - {item.phone}");
         }
     }
 
     public void AddItem(Abonent abonent)
     {
-        bool find = false;
-        using (StreamReader sr = new StreamReader(path))
+        List<Abonent> temp = abonents.FindAll(item => item.name == abonent.name);
+        if (temp.Count == 0)
         {
-            string lineToFind = sr.ReadLine();
-
-            while (lineToFind != null)
+            using (StreamWriter sw = new StreamWriter(path, true))
             {
-                if (lineToFind.Split(";")[1] == abonent.name && lineToFind.Split(";")[2] == abonent.phone)
-                {
-                    find = true;
-                    break;
-                }
-
-                lineToFind = sr.ReadLine();
+                string line = abonent.name + sep + abonent.phone;
+                sw.WriteLineAsync(line);
+                abonents.Add(abonent);
             }
         }
-
-        using (StreamWriter sw = new StreamWriter(path, true))
+        else
         {
-            if (!find)
-            {
-                this.lastId++;
-                string line = this.lastId + ";" + abonent.name + ";" + abonent.phone;
-                sw.WriteLineAsync(line);
-            }
-            else
-            {
-                Console.WriteLine("Пользователь с такими данными уже существует");
-            }
+            Console.WriteLine("Пользователь с такими данными уже существует");
         }
     }
+
 
     public string FindItemByPhone(string phone)
     {
         string result = "";
-        using (StreamReader sr = new StreamReader(path))
+        List<Abonent> temp = abonents.FindAll(item => item.phone == phone);
+        if (temp.Count == 0)
+            return "Не найдено пользователей с таким номером телефона";
+        foreach (Abonent item in temp)
         {
-            string line = sr.ReadLine();
-            while (line != null)
-            {
-                if (line.Split(";")[2] == phone)
-                {
-                    result += $"\n{line.Split(";")[2]}-{line.Split(";")[1]}";
-                }
-
-                line = sr.ReadLine();
-            }
+            result += $"{item.name} - {item.phone}\n";
         }
 
-        if (result != "")
-            return result;
-        return "Не найдено пользователей с таким номером телефона";
+        return result;
     }
+
     public string FindItemByName(string name)
     {
         string result = "";
-        using (StreamReader sr = new StreamReader(path))
+        List<Abonent> temp = abonents.FindAll(item => item.name == name);
+        if (temp.Count == 0)
+            return "Не найдено пользователей с таким имененм";
+        foreach (Abonent item in temp)
         {
-            string line = sr.ReadLine();
-            while (line != null)
-            {
-                if (line.Split(";")[1] == name)
-                {
-                    result += $"\n{line.Split(";")[1]}-{line.Split(";")[2]}";
-                }
+            result += $"{item.name} - {item.phone}\n";
+        }
 
-                line = sr.ReadLine();
-            }
-        }
-        if (result != "")
-            return result;
-        return "Не найдено пользователей с таким именем";
+        return result;
     }
-    public  void DeleteItem(string name)
+
+    public void DeleteItem(string name)
     {
-        List<string>people = new List<string>();
-        using (StreamReader sr = new StreamReader(path))
-        {
-            string line = sr.ReadLine();
-            while (line != null)
-            {
-                people.Add(line);
-                line = sr.ReadLine();
-            }
-        }
-        using (StreamWriter sw = new StreamWriter(path, false))
-        {
-            foreach (var line in people)
-            {
-                if (line.Split(";")[1] != name)
-                {
-                    sw.WriteLine(line);
-                }
-                
-            }
-        }
+        abonents.Remove(abonents.Find(x => x.name == name));
+        SaveAbonentsToFile();
     }
 }

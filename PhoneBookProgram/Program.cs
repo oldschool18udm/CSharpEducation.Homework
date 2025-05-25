@@ -16,7 +16,8 @@ class Program
         {
             phonebook.CreatePB();
         }
-        Console.Clear();
+        phonebook.LoadAbonentsFromFile();
+        
         while (command != "6")
         {
             Console.WriteLine(@"        Меню:
@@ -28,12 +29,12 @@ class Program
                     6. Выход из программы
                     ");
             command = Console.ReadLine();
-            Console.Clear();
+            
             switch (command)
             {
                 case "1":
                     Console.WriteLine("Содержимое телефонной Книжки:");
-                    phonebook.ShowPB();
+                    phonebook.ShowPB(phonebook.abonents);
                     break;
                 case "2":
                     Console.WriteLine("Добавляем новый контакт в книжку:");
