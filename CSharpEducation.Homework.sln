@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework02", "Homework02\Homework02.csproj", "{AA6FE66D-FC36-4B18-A368-FF6A6B02FCC3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Homework03", "Homework03", "{16BF28A3-E7FA-4619-9AC6-9275CFC19C9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonebookLibrary", "PhonebookLibrary\PhonebookLibrary.csproj", "{B546FF9B-4165-499C-AECC-3C6EE6142434}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookProgram", "PhoneBookProgram\PhoneBookProgram.csproj", "{9FA6A35B-3B0D-44ED-8EBE-BDD3C9DC68F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,17 @@ Global
 		{AA6FE66D-FC36-4B18-A368-FF6A6B02FCC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA6FE66D-FC36-4B18-A368-FF6A6B02FCC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA6FE66D-FC36-4B18-A368-FF6A6B02FCC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B546FF9B-4165-499C-AECC-3C6EE6142434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B546FF9B-4165-499C-AECC-3C6EE6142434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B546FF9B-4165-499C-AECC-3C6EE6142434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B546FF9B-4165-499C-AECC-3C6EE6142434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA6A35B-3B0D-44ED-8EBE-BDD3C9DC68F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA6A35B-3B0D-44ED-8EBE-BDD3C9DC68F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA6A35B-3B0D-44ED-8EBE-BDD3C9DC68F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA6A35B-3B0D-44ED-8EBE-BDD3C9DC68F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B546FF9B-4165-499C-AECC-3C6EE6142434} = {16BF28A3-E7FA-4619-9AC6-9275CFC19C9A}
+		{9FA6A35B-3B0D-44ED-8EBE-BDD3C9DC68F3} = {16BF28A3-E7FA-4619-9AC6-9275CFC19C9A}
 	EndGlobalSection
 EndGlobal
